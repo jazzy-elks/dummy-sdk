@@ -1,5 +1,5 @@
 {
-  "name": "dummy-sdk",
+  "name": "jazzy-elks-dummy-sdk",
   "version": "1.0.0",
   "description": "A dummy SDK for feature flags",
   "main": "config.js",
