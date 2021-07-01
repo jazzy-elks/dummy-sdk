@@ -1,4 +1,4 @@
-import eventTypes from './lib/eventTypes';
+const eventTypes = require('./lib/eventTypes');
 const EventSource = require("eventsource");
 
 class EventSourceClient {
@@ -9,7 +9,7 @@ class EventSourceClient {
     this.features = {};
     
     const options = {
-      headers: { Authorization: "JazzyElksRule"}
+      headers: { Authorization: config.sdkKey}
     }
     const apiClient = new EventSource(config.getServerAddress(), options);
     this.apiClient = apiClient;
@@ -23,8 +23,10 @@ class EventSourceClient {
   handleEvents() {
     this.apiClient.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log(data);
       const eventType = data.eventType;
       const payload = data.payload;
+      console.log(data.eventType === eventTypes.FEATURE_UPDATES);
       switch (eventType) {
         case eventTypes.FEATURE_UPDATE:
           this.handleFeatureUpdate(payload);
@@ -46,7 +48,8 @@ class EventSourceClient {
   }
 
   handleFeatureUpdates(payload) {
-    this.features = payload;
+    const { key, value } = payload;
+    this.features[key] = value;
   }
 
   getFeature(key) {
@@ -55,4 +58,4 @@ class EventSourceClient {
   }
 }
 
-export default EventSourceClient
+module.exports = EventSourceClient

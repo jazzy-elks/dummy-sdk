@@ -1,4 +1,4 @@
-import EventSourceClient from './eventSourceClient';
+const EventSourceClient = require('./eventSourceClient');
 
 class Config {
   constructor(serverAddress, sdkKey) {
@@ -14,8 +14,8 @@ class Config {
   }
 
   getServerAddress() {
-    return `${this.serverAddress}/$features`;
+    return `${this.serverAddress}/features`;
   }
 }
 
-export default Config
+module.exports = Config
