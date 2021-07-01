@@ -1,0 +1,19 @@
+{
+  "name": "dummy-sdk",
+  "version": "1.0.0",
+  "description": "A dummy SDK for feature flags",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazzy-elks/dummy-sdk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jazzy-elks/dummy-sdk/issues"
+  },
+  "homepage": "https://github.com/jazzy-elks/dummy-sdk#readme"
+}
