@@ -14,7 +14,7 @@ class Config {
   }
 
   getServerAddress() {
-    return `${this.serverAddress}/${this.sdkKey}`;
+    return `${this.serverAddress}/$features`;
   }
 }
 

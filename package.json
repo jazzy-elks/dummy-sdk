@@ -1,6 +1,6 @@
 {
   "name": "jazzy-elks-dummy-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A dummy SDK for feature flags",
   "main": "config.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jazzy-elks/dummy-sdk/issues"
   },
-  "homepage": "https://github.com/jazzy-elks/dummy-sdk#readme"
+  "homepage": "https://github.com/jazzy-elks/dummy-sdk#readme",
+  "dependencies": {
+    "eventsource": "^1.1.0"
+  }
 }

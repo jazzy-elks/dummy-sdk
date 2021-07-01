@@ -1,4 +1,5 @@
 import eventTypes from './lib/eventTypes';
+const EventSource = require("eventsource");
 
 class EventSourceClient {
   constructor(config) {
@@ -7,7 +8,10 @@ class EventSourceClient {
     this.config = config;
     this.features = {};
     
-    const apiClient = new EventSource(config.getServerAddress());
+    const options = {
+      headers: { Authorization: "JazzyElksRule"}
+    }
+    const apiClient = new EventSource(config.getServerAddress(), options);
     this.apiClient = apiClient;
   }
 
