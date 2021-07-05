@@ -11,27 +11,37 @@ class EventSourceClient {
     const options = {
       headers: { Authorization: config.sdkKey}
     }
+
+    // initialize the SSE with edge
     const apiClient = new EventSource(config.getServerAddress(), options);
     this.apiClient = apiClient;
   }
 
   start() {
+    // start listening for SSE messages
     this.handleEvents();
     this.handleErrors();
   }
 
   handleEvents() {
     this.apiClient.onmessage = (event) => {
+      // JSON parse the entire SSE message (in the data property)
       const data = JSON.parse(event.data);
-      console.log(data);
+
+      // get the eventType
       const eventType = data.eventType;
+      
+      // get the payload
       const payload = data.payload;
-      console.log(data.eventType === eventTypes.FEATURE_UPDATES);
+
+      // call the proper handler function based on the eventType
       switch (eventType) {
-        case eventTypes.FEATURE_UPDATE:
-          this.handleFeatureUpdate(payload);
-        case eventTypes.FEATURE_UPDATES:
-          this.handleFeatureUpdates(payload);
+
+        case eventTypes.UPDATE_FEATURE:
+          this.handleUpdateFeature(payload);
+          
+        case eventTypes.ALL_FEATURES:
+          this.handleAllFeatures(payload);
       }
     }
   }
@@ -42,14 +52,13 @@ class EventSourceClient {
     }
   }
 
-  handleFeatureUpdate(payload) {
+  handleUpdateFeature(payload) {
     const { key, value } = payload;
     this.features[key] = value;
   }
 
-  handleFeatureUpdates(payload) {
-    const { key, value } = payload;
-    this.features[key] = value;
+  handleAllFeatures(payload) {
+    this.features = payload;
   }
 
   getFeature(key) {
