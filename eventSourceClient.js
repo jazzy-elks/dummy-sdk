@@ -1,5 +1,6 @@
-const eventTypes = require('./lib/eventTypes');
 const EventSource = require("eventsource");
+const eventTypes = require('./lib/eventTypes');
+const FeatureState = require('./featureState');
 
 class EventSourceClient {
   constructor(config) {
@@ -53,12 +54,21 @@ class EventSourceClient {
   }
 
   handleUpdateFeature(payload) {
-    const { key, value } = payload;
-    this.features[key] = value;
+    const { key } = payload;
+
+    // create a new feature state and override the previous value
+    this.features[key] = new FeatureState(payload);
   }
 
   handleAllFeatures(payload) {
-    this.features = payload;
+    // initialize a new object of feature states and override the previous value
+    const featureStates = {};
+
+    payload.forEach((featureStateParams) => {
+      const { key } = featureStateParams;
+      featureStates[key] = new FeatureState(featureStateParams);
+    })
+    this.features = featureStates;
   }
 
   getFeature(key) {
