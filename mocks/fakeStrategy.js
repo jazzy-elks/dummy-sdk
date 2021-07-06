@@ -14,7 +14,7 @@ class FakeStrategy {
     const key = context.getKey();
 
     // calculate the hashed percentage
-    const hashedPercentage = ((this.basicHash(key) % Strategy.modulus) + 1) / Strategy.modulus;
+    const hashedPercentage = ((this.basicHash(key) % FakeStrategy.modulus) + 1) / FakeStrategy.modulus;
     
     // check if the hashedPercentage meets the requirements
     // if it matches, then return the strategy value
@@ -27,10 +27,18 @@ class FakeStrategy {
 
   // just adds up all the charCodes in the string
   basicHash(string) {
-    const charArr = string.split();
+    const charArr = string.split('');
     const sum = charArr.reduce((sum, char) => {
       return sum + char.charCodeAt();
-    });
+    }, 0);
+    return sum;
+  }
+
+  static basicHash(string) {
+    const charArr = string.split('');
+    const sum = charArr.reduce((sum, char) => {
+      return sum + char.charCodeAt();
+    }, 0);
     return sum;
   }
 }

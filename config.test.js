@@ -1,4 +1,5 @@
 const FakeConfig = require('./mocks/fakeConfig');
+const FakeStrategy = require('./mocks/fakeStrategy');
 
 describe('testing config', () => {
   let fakeConfig;
@@ -27,6 +28,9 @@ describe('testing config', () => {
     fakeConfig.connect();
     const clientWithContext = fakeConfig.withContext();
     expect(clientWithContext.context).toHaveProperty('userKey');
+    clientWithContext.eventSourceClient.apiClient.fakeEmitMessage();
+    console.log(clientWithContext.getFeature('show button'));
+    console.log(FakeStrategy.basicHash('show button'));
   });
 });
 

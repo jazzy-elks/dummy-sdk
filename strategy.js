@@ -27,10 +27,10 @@ class Strategy {
 
   // just adds up all the charCodes in the string
   basicHash(string) {
-    const charArr = string.split();
+    const charArr = string.split('');
     const sum = charArr.reduce((sum, char) => {
       return sum + char.charCodeAt();
-    });
+    }, 0);
     return sum;
   }
 }
