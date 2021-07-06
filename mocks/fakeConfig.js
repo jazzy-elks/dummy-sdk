@@ -28,7 +28,7 @@ class FakeConfig {
   }
 
   getServerAddress() {
-    
+    return `${this.serverAddress}/features`;
   }
 }
 

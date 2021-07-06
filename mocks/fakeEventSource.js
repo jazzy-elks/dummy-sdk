@@ -10,8 +10,8 @@ class FakeEventSource {
 
 
   fakeEmitMessage() {
-    const event = JSON.stringify({
-      data: {
+    const event = {
+      data: JSON.stringify({
         eventType: "ALL_FEATURES",
         payload: [
           {
@@ -24,8 +24,9 @@ class FakeEventSource {
           }
         ]
       }
-    });
-    this.onmessage(event);
+    )
+  };
+  this.onmessage(event);
   }
 }
 
