@@ -28,9 +28,18 @@ describe('testing config', () => {
     fakeConfig.connect();
     const clientWithContext = fakeConfig.withContext();
     expect(clientWithContext.context).toHaveProperty('userKey');
+
+    // retrieve the feature
     clientWithContext.eventSourceClient.apiClient.fakeEmitMessage();
-    console.log(clientWithContext.getFeature('show button'));
-    console.log(FakeStrategy.basicHash('show button'));
+
+    // current key is 'user123'
+    expect((FakeStrategy.basicHash(clientWithContext.context.getKey()) % 100) / 100).toBeGreaterThan(0.5);
+    expect(clientWithContext.getFeature('show button')).toBe(false);
+
+    // set the key to a string that passes the percent requirement
+    clientWithContext.context.userKey = 'cde';
+    expect((FakeStrategy.basicHash(clientWithContext.context.getKey()) % 100) / 100).toBeLessThanOrEqual(0.5);
+    expect(clientWithContext.getFeature('show button')).toBe(true);
   });
 });
 
