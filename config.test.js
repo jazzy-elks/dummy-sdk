@@ -11,14 +11,16 @@ describe('testing config', () => {
 
   test("initialize a connection", () => {
     const client = fakeConfig.connect();
-    expect(client.apiClient.serverAddress).toEqual(`${serverAddress}/features`);
+    const eventSourceClient = client.eventSourceClient;
+    expect(eventSourceClient.apiClient.serverAddress).toEqual(`${serverAddress}/features`);
   });
 
   test("emit a fake event", () => {
     const client = fakeConfig.connect();
-    client.apiClient.fakeEmitMessage();
-    expect(client.features).toHaveProperty('show button');
-    expect(client.features).toHaveProperty('show button.key', 'show button');
+    const eventSourceClient = client.eventSourceClient;
+    eventSourceClient.apiClient.fakeEmitMessage();
+    expect(eventSourceClient.features).toHaveProperty('show button');
+    expect(eventSourceClient.features).toHaveProperty('show button.key', 'show button');
   });
 
   test("client with context", () => {

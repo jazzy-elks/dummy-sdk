@@ -12,7 +12,7 @@ class FakeConfig {
     const eventSourceClient = new FakeEventSourceClient(this);
     this.eventSourceClient = eventSourceClient;
     eventSourceClient.start();
-    return eventSourceClient;
+    return this;
   }
 
   withContext() {
@@ -22,7 +22,7 @@ class FakeConfig {
 
         userKey: "user123"
       }),
-      client: self.eventSourceClient,
+      eventSourceClient: self.eventSourceClient,
       config: self
     });
   }
