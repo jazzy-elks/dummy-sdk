@@ -11,7 +11,7 @@ class Config {
     const eventSourceClient = new EventSourceClient(this);
     this.eventSourceClient = eventSourceClient;
     eventSourceClient.start();
-    return eventSourceClient;
+    return eventSourceClient; // the go sdk returns the config rather than the event source client
   }
 
   withContext() {
